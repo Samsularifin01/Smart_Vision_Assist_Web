@@ -25,8 +25,10 @@
                 <a href="/forgot-password">Lupa Password?</a>
             </div>
 
-            <button class="btn btn-primary w-100">Login</button>
+            <a href="/dashboard" class="btn btn-primary w-100">Login</a>
+    
         </form>
+
 
         <p class="text-center mt-3">
             Belum punya akun? <a href="/register">Sign Up</a>

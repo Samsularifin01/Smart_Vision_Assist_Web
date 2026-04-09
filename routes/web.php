@@ -25,3 +25,7 @@ Route::get('/reset-password', function () {
 
 // ROUTE OTP
 Route::post('/send-otp', [AuthController::class, 'sendOtp']);
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+});
