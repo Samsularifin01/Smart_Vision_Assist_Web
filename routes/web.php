@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use PhpParser\Builder\Function_;
+use App\Http\Controllers\AuthController; // WAJIB ADA
 
 Route::get('/', function () {
     return view('login');
@@ -14,3 +14,14 @@ Route::get('/register', function () {
 Route::get('/forgot-password', function () {
     return view('forgot-password');
 });
+
+Route::get('/verify-otp', function () {
+    return view('verify-otp');
+});
+
+Route::get('/reset-password', function () {
+    return view('reset-password');
+});
+
+// ROUTE OTP
+Route::post('/send-otp', [AuthController::class, 'sendOtp']);
