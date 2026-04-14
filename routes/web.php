@@ -4,27 +4,24 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController; // WAJIB ADA
 
 Route::get('/', function () {
-    return view('login');
+    return view('auth.login');
 });
 
 Route::get('/register', function () {
-    return view('register');
+    return view('auth.register');
 });
 
 Route::get('/forgot-password', function () {
-    return view('forgot-password');
+    return view('auth.forgot-password');
 });
 
 Route::get('/verify-otp', function () {
-    return view('verify-otp');
+    return view('auth.verify-otp');
 });
 
 Route::get('/reset-password', function () {
-    return view('reset-password');
+    return view('auth.reset-password');
 });
-
-// ROUTE OTP
-Route::post('/send-otp', [AuthController::class, 'sendOtp']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
