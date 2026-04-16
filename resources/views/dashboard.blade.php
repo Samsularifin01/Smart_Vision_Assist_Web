@@ -2,28 +2,29 @@
 <html>
 <head>
     <title>Dashboard Admin</title>
-
-    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="bg-light">
 
-<div class="d-flex">
+<div class="d-flex" style="min-height: 100vh;">
 
     <!-- SIDEBAR -->
     @include('layouts.sidebar')
 
-    <!-- CONTENT -->
-    <div class="flex-grow-1">
+    <!-- MAIN CONTENT -->
+    <div class="flex-grow-1 d-flex flex-column">
 
-        
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+            <div class="container-fluid">
+                <span class="navbar-brand mb-0 h1">Dashboard</span>
+            </div>
+        </nav>
 
-        <!-- MAIN CONTENT -->
-        <div class="container-fluid mt-4 px-4">
+        <!-- CONTENT -->
+        <div class="container-fluid mt-4 px-4 flex-grow-1">
 
             <div class="row g-3">
 
@@ -51,14 +52,14 @@
 
             <!-- TABLE -->
             <div class="card mt-4 shadow-sm">
-                <div class="card-header">
-                    Data User
+                <div class="card-header bg-dark text-white">
+                    <strong>Data User</strong>
                 </div>
 
                 <div class="card-body table-responsive">
 
-                    <table class="table table-striped">
-                        <thead>
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
                             <tr>
                                 <th>No</th>
                                 <th>Nama</th>

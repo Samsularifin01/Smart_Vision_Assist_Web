@@ -1,40 +1,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Login - Smart Vision</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="/css/login.css" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card p-4 shadow" style="width: 400px;">
-        <h3 class="text-center mb-3">Login</h3>
+<div class="login-container">
+    <div class="login-card">
+        <div class="login-header">
+            <h2><i class="fas fa-eye" style="color: #667eea;"></i> Smart Vision</h2>
+            <p>Masuk ke akun Anda</p>
+        </div>
 
-        <form>
-            <div class="mb-3">
+        <form id="loginForm">
+            <div class="form-group">
                 <label>Email</label>
-                <input type="email" class="form-control" placeholder="Masukkan email">
+                <div class="form-icon">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" class="form-control" id="email" placeholder="Masukkan email Anda" required>
+                </div>
             </div>
 
-            <div class="mb-3">
+            <div class="form-group">
                 <label>Password</label>
-                <input type="password" class="form-control" placeholder="Masukkan password">
+                <div class="form-icon">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" class="form-control" id="password" placeholder="Masukkan password Anda" required>
+                </div>
             </div>
 
-            <div class="d-flex justify-content-between mb-3">
-                <a href="/forgot-password">Lupa Password?</a>
+            <div class="forgot-password">
+                <a href="/forgot-password">Lupa password?</a>
             </div>
 
-            <a href="/dashboard" class="btn btn-primary w-100">Login</a>
-    
+            <a href="/dashboard" class="btn btn-login" onclick="return validateLogin()">
+                <i class="fas fa-sign-in-alt me-2"></i>Login
+            </a>
         </form>
 
-
-        <p class="text-center mt-3">
-            Belum punya akun? <a href="/register">Sign Up</a>
-        </p>
+        <div class="signup-section">
+            <p>Belum punya akun? <a href="/register">Daftar sekarang</a></p>
+        </div>
     </div>
 </div>
+
+<script>
+    function validateLogin() {
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        if (email === '' || password === '') {
+            alert('Email dan Password harus diisi!');
+            return false;
+        }
+
+        if (!email.includes('@')) {
+            alert('Email tidak valid!');
+            return false;
+        }
+
+        if (password.length < 6) {
+            alert('Password minimal 6 karakter!');
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 </body>
 </html>
