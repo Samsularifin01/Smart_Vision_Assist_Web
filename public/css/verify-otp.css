@@ -1,0 +1,233 @@
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.login-header h2 {
+    color: #667eea;
+    font-weight: 700;
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.login-header p {
+    color: #999;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 14px;
+}
+
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background-color: #f8f9fa;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    background-color: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: #bbb;
+}
+
+.form-icon {
+    position: relative;
+}
+
+.form-icon i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #667eea;
+    pointer-events: none;
+}
+
+.form-icon input {
+    padding-left: 45px;
+}
+
+.forgot-password {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.forgot-password a {
+    color: #667eea;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+.btn-login {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    width: 100%;
+    color: white;
+    display: inline-block;
+    text-align: center;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.btn-login:active {
+    transform: translateY(0);
+}
+
+.signup-section {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.signup-section p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 0;
+}
+
+.signup-section a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.signup-section a:hover {
+    color: #764ba2;
+}
+
+.otp-group {
+    margin-bottom: 18px;
+}
+
+.otp-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    color: #222;
+    letter-spacing: 0.4px;
+}
+
+.otp-accent {
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    padding: 0 6px;
+    border-radius: 4px;
+    font-weight: 900;
+}
+
+.otp-sub {
+    display: block;
+    font-size: 13px;
+    color: #666;
+    font-weight: 600;
+    margin-top: 6px;
+}
+
+.otp-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.otp-input {
+    padding-left: 45px;
+    font-size: 18px;
+    letter-spacing: 6px; /* spasi antar digit agar jelas */
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.otp-icon i {
+    left: 14px;
+}
+
+.otp-timer {
+    margin-top: 10px;
+    min-width: 100%;
+    text-align: center;
+    background: #f1f5ff;
+    color: #333;
+    border-radius: 8px;
+    padding: 8px 10px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.btn-login.disabled, .btn-login:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
