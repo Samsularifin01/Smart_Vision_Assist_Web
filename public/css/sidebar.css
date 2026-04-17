@@ -1,0 +1,103 @@
+.sv-sidebar {
+    width: 250px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 22px;
+    background: #0f1724; /* dark base */
+    color: #fff;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.12);
+    gap: 8px;
+    box-sizing: border-box;
+}
+
+/* Brand */
+.sv-brand {
+    padding: 8px 6px;
+}
+.sv-brand-icon {
+    font-size: 26px;
+    color: #667eea;
+    display: block;
+    margin: 0 auto 6px;
+}
+.sv-brand-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.6px;
+    color: #eef2ff;
+}
+
+/* Nav list */
+.sv-nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Links */
+.sv-nav .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #e6eefc;
+    text-decoration: none;
+    padding: 10px 12px;
+    border-radius: 10px;
+    transition: all 0.18s ease;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Icon color for links */
+.sv-nav .nav-link i {
+    width: 20px;
+    text-align: center;
+    color: #9fb3ff;
+}
+
+/* Hover */
+.sv-nav .nav-link:hover {
+    background: rgba(102,126,234,0.12);
+    transform: translateX(6px);
+    color: #fff;
+}
+
+/* Active state (accent gradient) */
+.sv-nav .nav-link.active {
+    background: linear-gradient(90deg, rgba(102,126,234,0.18), rgba(118,75,162,0.12));
+    color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.02);
+}
+
+/* Logout area */
+.sv-logout-wrap {
+    margin-top: 18px;
+}
+.sv-logout {
+    display: block;
+    text-align: center;
+    color: #fff;
+    background: linear-gradient(90deg, #ff6b6b, #ff4d4d);
+    padding: 10px 12px;
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.sv-logout i { color: #fff; }
+.sv-logout:hover {
+    transform: translateX(4px);
+    box-shadow: 0 8px 20px rgba(255,77,77,0.18);
+}
+
+/* Responsive: collapse width on small screens */
+@media (max-width: 768px) {
+    .sv-sidebar { width: 72px; padding: 12px; }
+    .sv-brand-title, .sv-nav .nav-link span { display: none; }
+    .sv-nav .nav-link { justify-content: center; padding: 10px; }
+    .sv-logout { padding: 8px; }
+}
