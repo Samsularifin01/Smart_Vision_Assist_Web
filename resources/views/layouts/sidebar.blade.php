@@ -15,13 +15,13 @@
 		</li>
 
 		<li class="nav-item">
-			<a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="#">
+			<a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="">
 				<i class="fa fa-users me-3"></i> <span>Users</span>
 			</a>
 		</li>
 
 		<li class="nav-item">
-			<a class="nav-link {{ request()->is('settings') ? 'active' : '' }}" href="#">
+			<a class="nav-link {{ request()->is('settings') ? 'active' : '' }}" href="/settings">
 				<i class="fa fa-cog me-3"></i> <span>Settings</span>
 			</a>
 		</li>

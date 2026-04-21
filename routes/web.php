@@ -24,5 +24,9 @@ Route::get('/reset-password', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    return view('dashboard.index');
+});
+
+Route::get('/settings', function () {
+    return view('dashboard.settings');
 });
