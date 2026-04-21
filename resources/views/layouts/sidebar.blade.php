@@ -15,7 +15,7 @@
 		</li>
 
 		<li class="nav-item">
-			<a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="">
+			<a class="nav-link {{ request()->is('users*') ? 'active' : '' }}" href="\users">
 				<i class="fa fa-users me-3"></i> <span>Users</span>
 			</a>
 		</li>

@@ -30,3 +30,7 @@ Route::get('/dashboard', function () {
 Route::get('/settings', function () {
     return view('dashboard.settings');
 });
+
+Route::get('/users', function () {
+    return view('dashboard.users');
+});
