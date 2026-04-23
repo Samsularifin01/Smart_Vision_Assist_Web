@@ -172,6 +172,93 @@
 	box-shadow: 0 4px 12px rgba(102,126,234,0.3);
 }
 
+/* Modal styling */
+.modal-header {
+    font-weight: 700;
+    border: none;
+    padding: 18px 24px;
+}
+
+.modal-body {
+    padding: 28px;
+}
+
+.modal-footer {
+    border-top: 1px solid #e9ecef;
+    padding: 14px 24px;
+    background: #f8f9fa;
+}
+
+/* Form labels */
+.form-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+/* Input groups */
+.input-group {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.input-group-text {
+    background: #f0f2f5;
+    border: 1px solid #ddd;
+    color: #667eea;
+    font-weight: 600;
+}
+
+.input-group .form-control {
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+}
+
+.input-group .form-control:focus {
+    border-color: #667eea;
+    box-shadow: none;
+}
+
+/* Form selects */
+.form-select {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 10px 12px;
+    font-size: 0.95rem;
+}
+
+.form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.1);
+}
+
+/* Radio buttons */
+.form-check {
+    display: flex;
+    align-items: center;
+}
+
+.form-check-input {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    border-color: #ddd;
+    cursor: pointer;
+}
+
+.form-check-input:checked {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.form-check-label {
+    margin-bottom: 0;
+    cursor: pointer;
+    font-weight: 500;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
 	.users-header {
@@ -191,4 +278,20 @@
 		padding: 4px 8px;
 		font-size: 0.75rem;
 	}
+
+    .modal-dialog {
+        margin: 0.5rem;
+    }
+
+    .modal-body {
+        padding: 18px;
+    }
+
+    .row {
+        flex-direction: column;
+    }
+
+    .col-md-6, .col-md-12 {
+        width: 100% !important;
+    }
 }
