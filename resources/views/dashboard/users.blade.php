@@ -71,22 +71,24 @@
                             <thead class="table-light">
                                 <tr>
                                     <th width="5%">No</th>
-                                    <th width="25%">Nama</th>
-                                    <th width="30%">Email</th>
-                                    <th width="15%">Status</th>
-                                    <th width="25%">Aksi</th>
+                                    <th width="15%">Nama</th>
+                                    <th width="15%">Email</th>
+                                    <th width="12%">No. Telepon</th>
+                                    <th width="10%">Jenis Kelamin</th>
+                                    <th width="10%">Role</th>
+                                    <th width="10%">Status</th>
+                                    <th width="23%">Aksi</th>
                                 </tr>
                             </thead>
 
                             <tbody id="userTable">
                                 <tr>
                                     <td>1</td>
-                                    <td>
-                                        <div class="user-name">
-                                            <i class="fa fa-circle-user me-2"></i>Samsul
-                                        </div>
-                                    </td>
+                                    <td>Samsul</td>
                                     <td>samsul@gmail.com</td>
+                                    <td>08123456789</td>
+                                    <td><span class="badge bg-info">Laki-laki</span></td>
+                                    <td><span class="badge bg-secondary">Admin</span></td>
                                     <td>
                                         <span class="badge bg-success">Aktif</span>
                                     </td>
@@ -102,12 +104,11 @@
 
                                 <tr>
                                     <td>2</td>
-                                    <td>
-                                        <div class="user-name">
-                                            <i class="fa fa-circle-user me-2"></i>Budi
-                                        </div>
-                                    </td>
+                                    <td>Budi</td>
                                     <td>budi@gmail.com</td>
+                                    <td>08987654321</td>
+                                    <td><span class="badge bg-info">Laki-laki</span></td>
+                                    <td><span class="badge bg-primary">User</span></td>
                                     <td>
                                         <span class="badge bg-secondary">Nonaktif</span>
                                     </td>
@@ -255,36 +256,187 @@
         </div>
     </div>
 
+    <!-- MODAL EDIT USER (TAMBAH BARU) -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <!-- Header Modal -->
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="editUserLabel">
+                        <i class="fa fa-user-edit me-2"></i>Edit User
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Body Modal -->
+                <div class="modal-body">
+                    <form id="editUserForm" onsubmit="handleEditUser(event)">
+
+                        <!-- ROW 1: Nama & Phone -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-600">Nama Lengkap</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+                                    <input type="text" class="form-control" id="editUserName" placeholder="Masukkan nama" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-600">No. Telepon</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="editUserPhone" 
+                                        placeholder="08xxxxxxxxxx" 
+                                        inputmode="numeric" 
+                                        maxlength="13"
+                                        oninput="filterPhoneInputEdit(this)"
+                                        required>
+                                </div>
+                                <small class="text-muted d-block mt-1">Maksimal 13 digit (angka saja)</small>
+                                <small id="phoneErrorEdit" class="text-danger d-block" style="display: none;"></small>
+                            </div>
+                        </div>
+
+                        <!-- ROW 2: Email & Gender -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-600">Email</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                    <input type="email" class="form-control" id="editUserEmail" placeholder="email@gmail.com" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-600">Jenis Kelamin</label>
+                                <select class="form-select" id="editUserGender" required>
+                                    <option value="">-- Pilih Jenis Kelamin --</option>
+                                    <option value="laki-laki">Laki-laki</option>
+                                    <option value="perempuan">Perempuan</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- ROW 3: Password & Role -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-600">Password (Kosongkan jika tidak diubah)</label>
+                                <div class="input-group">
+                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                    <input type="password" class="form-control" id="editUserPassword" placeholder="Minimal 6 karakter" oninput="checkPasswordStrengthEdit()">
+                                    <button class="btn btn-outline-secondary" type="button" onclick="togglePasswordEdit()">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+                                <!-- Password strength indicator -->
+                                <div id="pwStrengthEdit" class="mt-2 fw-600" style="font-size: 0.9rem;"></div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-600">Role</label>
+                                <select class="form-select" id="editUserRole" required>
+                                    <option value="">-- Pilih Role --</option>
+                                    <option value="admin">Admin</option>
+                                    <option value="user">User</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- ROW 4: Status -->
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label class="form-label fw-600">Status</label>
+                                <div class="d-flex gap-3">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="editUserStatus" id="editStatusAktif" value="aktif">
+                                        <label class="form-check-label" for="editStatusAktif">
+                                            <i class="fa fa-check-circle text-success me-1"></i>Aktif
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="editUserStatus" id="editStatusNonaktif" value="nonaktif">
+                                        <label class="form-check-label" for="editStatusNonaktif">
+                                            <i class="fa fa-times-circle text-danger me-1"></i>Nonaktif
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- Footer Modal -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fa fa-times me-2"></i>Batal
+                    </button>
+                    <button type="button" class="btn btn-warning" onclick="submitEditUser()">
+                        <i class="fa fa-save me-2"></i>Update User
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        // Variable untuk menyimpan row yang sedang diedit
+        let currentEditRow = null;
+
+        // Edit user function — ambil data dari tabel dan buka modal
+        function editUser(button) {
+            const row = button.closest('tr');
+            currentEditRow = row;
+
+            // Ambil data dari tabel
+            const cells = row.querySelectorAll('td');
+            const userName = cells[1].textContent.trim();
+            const userEmail = cells[2].textContent.trim();
+            const userPhone = cells[3].textContent.trim();
+            const userGender = cells[4].textContent.trim().toLowerCase();
+            const userRole = cells[5].textContent.trim().toLowerCase();
+            const userStatus = cells[6].querySelector('.badge').textContent.trim().toLowerCase();
+
+            // Isi form dengan data user
+            document.getElementById('editUserName').value = userName;
+            document.getElementById('editUserEmail').value = userEmail;
+            document.getElementById('editUserPhone').value = userPhone;
+            document.getElementById('editUserGender').value = userGender === 'laki-laki' ? 'laki-laki' : 'perempuan';
+            document.getElementById('editUserPassword').value = '';
+            document.getElementById('editUserRole').value = userRole;
+
+            // Set status radio button
+            if (userStatus === 'aktif') {
+                document.getElementById('editStatusAktif').checked = true;
+            } else {
+                document.getElementById('editStatusNonaktif').checked = true;
+            }
+
+            // Clear password strength indicator
+            document.getElementById('pwStrengthEdit').textContent = '';
+
+            // Buka modal edit
+            const editModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+            editModal.show();
+        }
+
         // Delete user function
         function deleteUser(button) {
             const row = button.closest('tr');
-            const userName = row.querySelector('.user-name').textContent.trim();
+            const userName = row.querySelector('td:nth-child(2)').textContent.trim();
 
-            // Konfirmasi delete
             if (confirm(`Apakah Anda yakin ingin menghapus user "${userName}"?`)) {
-                // Hapus baris dari tabel
                 row.remove();
-
-                // Tampilkan toast notifikasi sukses
                 showToast(`✓ User "${userName}" berhasil dihapus!`);
-
-                // Update nomor urut
                 updateTableNumbers();
             }
         }
 
-        // Edit user function (placeholder untuk fitur edit)
-        function editUser(button) {
-            const row = button.closest('tr');
-            const userName = row.querySelector('.user-name').textContent.trim();
-            alert(`Fitur edit untuk "${userName}" akan segera tersedia.`);
-        }
-
-        // Update nomor urut di tabel setelah delete
+        // Update nomor urut di tabel
         function updateTableNumbers() {
             const rows = document.querySelectorAll('#userTable tr');
             rows.forEach((row, index) => {
@@ -292,22 +444,15 @@
             });
         }
 
-        // Filter phone input — hanya terima angka
-        function filterPhoneInput(input) {
-            const phoneError = document.getElementById('phoneError');
-            
-            // Simpan nilai asli
+        // Filter phone input untuk edit
+        function filterPhoneInputEdit(input) {
+            const phoneError = document.getElementById('phoneErrorEdit');
             const originalValue = input.value;
-            
-            // Hapus semua karakter non-numeric
             input.value = input.value.replace(/[^0-9]/g, '');
             
-            // Jika ada perubahan, tampilkan error
             if (originalValue !== input.value && originalValue.length > 0) {
                 phoneError.textContent = '⚠ Hanya angka yang diperbolehkan!';
                 phoneError.style.display = 'block';
-                
-                // Hilangkan error message setelah 2 detik
                 setTimeout(() => {
                     phoneError.style.display = 'none';
                 }, 2000);
@@ -316,7 +461,149 @@
             }
         }
 
-        // Check password strength dengan indikator visual
+        // Check password strength untuk edit
+        function checkPasswordStrengthEdit() {
+            const pwInput = document.getElementById('editUserPassword');
+            const pwValue = pwInput.value;
+            const strengthEl = document.getElementById('pwStrengthEdit');
+
+            if (pwValue.length === 0) {
+                strengthEl.textContent = '';
+                strengthEl.className = 'mt-2 fw-600';
+                return;
+            }
+
+            const hasUpper = /[A-Z]/.test(pwValue);
+            const hasDigit = /[0-9]/.test(pwValue);
+
+            if (pwValue.length < 6) {
+                strengthEl.textContent = '✗ Password lemah';
+                strengthEl.className = 'mt-2 fw-600 text-danger';
+                return;
+            }
+
+            if (hasUpper && hasDigit) {
+                strengthEl.textContent = '✓ Password kuat';
+                strengthEl.className = 'mt-2 fw-600 text-success';
+                return;
+            }
+
+            strengthEl.textContent = '⚠ Password sedang';
+            strengthEl.className = 'mt-2 fw-600 text-warning';
+        }
+
+        // Toggle password visibility untuk edit
+        function togglePasswordEdit() {
+            const pwInput = document.getElementById('editUserPassword');
+            const icon = event.target.closest('button').querySelector('i');
+            if (pwInput.type === 'password') {
+                pwInput.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                pwInput.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        // Submit form edit user
+        function submitEditUser() {
+            const form = document.getElementById('editUserForm');
+            if (!form.checkValidity()) {
+                alert('Mohon isi semua field yang diperlukan!');
+                form.reportValidity();
+                return;
+            }
+
+            handleEditUser();
+        }
+
+        function handleEditUser(event) {
+            if (event) event.preventDefault();
+
+            const name = document.getElementById('editUserName').value.trim();
+            const phone = document.getElementById('editUserPhone').value.trim();
+            const email = document.getElementById('editUserEmail').value.trim();
+            const gender = document.getElementById('editUserGender').value;
+            const password = document.getElementById('editUserPassword').value;
+            const role = document.getElementById('editUserRole').value;
+            const status = document.querySelector('input[name="editUserStatus"]:checked').value;
+
+            // Validasi
+            if (!name || !phone || !email || !gender || !role || !status) {
+                alert('Semua field harus diisi!');
+                return;
+            }
+
+            if (!/^\d+$/.test(phone) || phone.length < 10 || phone.length > 13) {
+                alert('Nomor telepon harus 10-13 digit (angka saja)!');
+                return;
+            }
+
+            if (password && password.length < 6) {
+                alert('Password minimal 6 karakter!');
+                return;
+            }
+
+            if (!email.includes('@')) {
+                alert('Email tidak valid!');
+                return;
+            }
+
+            // Update data di tabel
+            if (currentEditRow) {
+                const cells = currentEditRow.querySelectorAll('td');
+                cells[1].textContent = name;
+                cells[2].textContent = email;
+                cells[3].textContent = phone;
+                
+                // Update gender
+                const genderBadge = cells[4].querySelector('.badge');
+                genderBadge.textContent = gender === 'laki-laki' ? 'Laki-laki' : 'Perempuan';
+                
+                // Update role
+                const roleBadge = cells[5].querySelector('.badge');
+                roleBadge.textContent = role === 'admin' ? 'Admin' : 'User';
+                roleBadge.className = role === 'admin' ? 'badge bg-secondary' : 'badge bg-primary';
+                
+                // Update status badge
+                const statusBadge = cells[6].querySelector('.badge');
+                if (status === 'aktif') {
+                    statusBadge.textContent = 'Aktif';
+                    statusBadge.className = 'badge bg-success';
+                } else {
+                    statusBadge.textContent = 'Nonaktif';
+                    statusBadge.className = 'badge bg-secondary';
+                }
+            }
+
+            // Tampilkan toast notifikasi
+            showToast(`✓ User "${name}" berhasil diupdate!`);
+
+            // Tutup modal
+            const editModal = bootstrap.Modal.getInstance(document.getElementById('editUserModal'));
+            editModal.hide();
+        }
+
+        // Filter phone input — hanya terima angka (untuk tambah)
+        function filterPhoneInput(input) {
+            const phoneError = document.getElementById('phoneError');
+            const originalValue = input.value;
+            input.value = input.value.replace(/[^0-9]/g, '');
+            
+            if (originalValue !== input.value && originalValue.length > 0) {
+                phoneError.textContent = '⚠ Hanya angka yang diperbolehkan!';
+                phoneError.style.display = 'block';
+                setTimeout(() => {
+                    phoneError.style.display = 'none';
+                }, 2000);
+            } else {
+                phoneError.style.display = 'none';
+            }
+        }
+
+        // Check password strength untuk tambah
         function checkPasswordStrength() {
             const pwInput = document.getElementById('userPassword');
             const pwValue = pwInput.value;
@@ -348,7 +635,7 @@
             strengthEl.className = 'mt-2 fw-600 text-warning';
         }
 
-        // Toggle password visibility di modal
+        // Toggle password visibility untuk tambah
         function togglePasswordModal() {
             const pwInput = document.getElementById('userPassword');
             const icon = event.target.closest('button').querySelector('i');
@@ -386,13 +673,11 @@
             const role = document.getElementById('userRole').value;
             const status = document.querySelector('input[name="userStatus"]:checked').value;
 
-            // Validasi
             if (!name || !phone || !email || !gender || !password || !role) {
                 alert('Semua field harus diisi!');
                 return;
             }
 
-            // Validasi phone — hanya angka dan panjang 10-13
             if (!/^\d+$/.test(phone)) {
                 alert('Nomor telepon hanya boleh berisi angka!');
                 return;
@@ -413,13 +698,9 @@
                 return;
             }
 
-            // Tambah ke tabel (sementara tanpa database)
             addUserToTable(name, email, status);
-
-            // Tampilkan toast notifikasi
             showToast(`✓ User "${name}" berhasil ditambahkan!`);
 
-            // Reset form & tutup modal
             document.getElementById('addUserForm').reset();
             document.getElementById('pwStrength').textContent = '';
             const modal = bootstrap.Modal.getInstance(document.getElementById('addUserModal'));
@@ -429,6 +710,14 @@
         function addUserToTable(name, email, status) {
             const table = document.getElementById('userTable');
             const rowCount = table.rows.length + 1;
+            const phone = document.getElementById('userPhone').value.trim();
+            const gender = document.getElementById('userGender').value;
+            const role = document.getElementById('userRole').value;
+            
+            const genderDisplay = gender === 'laki-laki' ? 'Laki-laki' : 'Perempuan';
+            const roleDisplay = role === 'admin' ? 'Admin' : 'User';
+            const roleBadgeColor = role === 'admin' ? 'bg-secondary' : 'bg-primary';
+            
             const statusBadge = status === 'aktif' 
                 ? '<span class="badge bg-success">Aktif</span>' 
                 : '<span class="badge bg-secondary">Nonaktif</span>';
@@ -436,12 +725,11 @@
             const newRow = `
                 <tr>
                     <td>${rowCount}</td>
-                    <td>
-                        <div class="user-name">
-                            <i class="fa fa-circle-user me-2"></i>${name}
-                        </div>
-                    </td>
+                    <td>${name}</td>
                     <td>${email}</td>
+                    <td>${phone}</td>
+                    <td><span class="badge bg-info">${genderDisplay}</span></td>
+                    <td><span class="badge ${roleBadgeColor}">${roleDisplay}</span></td>
                     <td>${statusBadge}</td>
                     <td>
                         <button class="btn btn-warning btn-sm me-2" onclick="editUser(this)">
@@ -478,10 +766,9 @@
             setTimeout(() => toast.remove(), 3000);
         }
 
-        // Filter table (existing code)
+        // Filter table
         const searchInput = document.getElementById("searchInput");
         const statusFilter = document.getElementById("statusFilter");
-        const rows = document.querySelectorAll("#userTable tr");
 
         function filterTable() {
             let search = searchInput.value.toLowerCase();
@@ -489,7 +776,7 @@
 
             document.querySelectorAll("#userTable tr").forEach(row => {
                 let text = row.innerText.toLowerCase();
-                let statusBadge = row.querySelector(".badge");
+                let statusBadge = row.querySelector("td:nth-child(7) .badge");
                 let rowStatus = statusBadge ? statusBadge.innerText : "";
 
                 let matchSearch = text.includes(search);
