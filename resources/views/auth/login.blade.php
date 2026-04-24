@@ -15,60 +15,127 @@
             <p>Masuk ke akun Anda</p>
         </div>
 
-        <form id="loginForm">
+        <form id="loginForm" method="POST" action="/login">
+            @csrf
+            
+            <!-- Tampilkan Error Messages -->
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <!-- Tampilkan Success Message -->
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div>{{ session('success') }}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+
+            <!-- Email Input -->
             <div class="form-group">
-                <label>Email</label>
+                <label for="email">Email</label>
                 <div class="form-icon">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" class="form-control" id="email" placeholder="Masukkan email Anda" required>
+                    <input type="email" class="form-control @error('email') is-invalid @enderror" 
+                           name="email" id="email" placeholder="Masukkan email Anda" 
+                           value="{{ old('email') }}" required>
                 </div>
+                @error('email')
+                    <span class="invalid-feedback d-block">{{ $message }}</span>
+                @enderror
             </div>
 
+            <!-- Password Input dengan Toggle Show/Hide -->
             <div class="form-group">
-                <label>Password</label>
+                <label for="password">Password</label>
                 <div class="form-icon">
                     <i class="fas fa-lock"></i>
-                    <input type="password" class="form-control" id="password" placeholder="Masukkan password Anda" required>
+                    <input type="password" class="form-control @error('password') is-invalid @enderror" 
+                           name="password" id="password" placeholder="Masukkan password Anda" required>
+                    <button type="button" class="password-toggle" id="togglePassword" tabindex="-1">
+                        <i class="fas fa-eye"></i>
+                    </button>
                 </div>
+                @error('password')
+                    <span class="invalid-feedback d-block">{{ $message }}</span>
+                @enderror
             </div>
 
+            <!-- Forgot Password -->
             <div class="forgot-password">
                 <a href="/forgot-password">Lupa password?</a>
             </div>
 
-            <a href="/dashboard" class="btn btn-login" onclick="return validateLogin()">
+            <!-- Login Button -->
+            <button type="submit" class="btn btn-login">
                 <i class="fas fa-sign-in-alt me-2"></i>Login
-            </a>
+            </button>
         </form>
 
+        <!-- Sign Up Link -->
         <div class="signup-section">
             <p>Belum punya akun? <a href="/register">Daftar sekarang</a></p>
         </div>
     </div>
 </div>
 
+<!-- Script untuk toggle show/hide password -->
 <script>
-    function validateLogin() {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
+    document.addEventListener('DOMContentLoaded', function() {
+        const passwordInput = document.getElementById('password');
+        const toggleButton = document.getElementById('togglePassword');
+        const toggleIcon = toggleButton.querySelector('i');
 
-        if (email === '' || password === '') {
-            alert('Email dan Password harus diisi!');
-            return false;
-        }
+        // Event listener untuk tombol toggle
+        toggleButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Cek tipe input saat ini
+            const isPassword = passwordInput.type === 'password';
+            
+            // Toggle tipe input
+            passwordInput.type = isPassword ? 'text' : 'password';
+            
+            // Toggle icon
+            toggleIcon.classList.toggle('fa-eye');
+            toggleIcon.classList.toggle('fa-eye-slash');
+            
+            // Optional: Add animation
+            toggleButton.style.transform = 'translateY(-50%) scale(1.2)';
+            setTimeout(() => {
+                toggleButton.style.transform = 'translateY(-50%) scale(1)';
+            }, 100);
+        });
 
-        if (!email.includes('@')) {
-            alert('Email tidak valid!');
-            return false;
-        }
+        // Optional: Keyboard shortcut (Alt + P untuk toggle password)
+        document.addEventListener('keydown', function(e) {
+            if (e.altKey && e.key === 'p') {
+                toggleButton.click();
+            }
+        });
 
-        if (password.length < 6) {
-            alert('Password minimal 6 karakter!');
-            return false;
-        }
+        // Optional: Auto-focus to email field
+        document.getElementById('email').focus();
 
-        return true;
-    }
+        // Close alert dengan tombol X
+        const closeButtons = document.querySelectorAll('.btn-close');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const alert = this.closest('.alert');
+                if (alert) {
+                    alert.style.animation = 'slideOutUp 0.3s ease-in forwards';
+                    setTimeout(() => {
+                        alert.remove();
+                    }, 300);
+                }
+            });
+        });
+    });
 </script>
 
 </body>
